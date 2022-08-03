@@ -42,12 +42,14 @@ public class Main {
     public static String listToJson(List<Employee> list) {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.setPrettyPrinting().create();
-        Type listType = new TypeToken<List<Employee>>() {
-        }.getType();
-        return gson.toJson(list, listType);
+//        Type listType = new TypeToken<List<Employee>>() {
+//        }.getType();
+//        return gson.toJson(list, listType);
+        return gson.toJson(list);
     }
 
     public static void writeString(String json) {
+//        try (FileWriter writer = new FileWriter("src/main/resources/new_data_with_type.json")) {
         try (FileWriter writer = new FileWriter("src/main/resources/new_data.json")) {
             writer.write(json);
             writer.flush();
