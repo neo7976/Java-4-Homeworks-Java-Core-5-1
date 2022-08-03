@@ -30,7 +30,6 @@ public class Main {
             ColumnPositionMappingStrategy<Employee> strategy = new ColumnPositionMappingStrategy<>();
             strategy.setType(Employee.class);
             strategy.setColumnMapping(columnMapping);
-            reader.close();
             CsvToBean<Employee> csv = new CsvToBeanBuilder<Employee>(reader)
                     .withMappingStrategy(strategy)
                     .build();
