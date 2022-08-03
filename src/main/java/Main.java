@@ -26,16 +26,18 @@ public class Main {
     }
 
     public static List<Employee> parseCSV(String[] columnMapping, String fileName) throws IOException {
-        try (CSVReader reader = new CSVReader(new FileReader(fileName))) {
-            ColumnPositionMappingStrategy<Employee> strategy = new ColumnPositionMappingStrategy<>();
-            strategy.setType(Employee.class);
-            strategy.setColumnMapping(columnMapping);
-            CsvToBean<Employee> csv = new CsvToBeanBuilder<Employee>(reader)
-                    .withMappingStrategy(strategy)
-                    .build();
-            return csv.parse();
-        }
+        CSVReader reader = new CSVReader(new FileReader(fileName));
+        ColumnPositionMappingStrategy<Employee> strategy = new ColumnPositionMappingStrategy<>();
+        strategy.setType(Employee.class);
+        strategy.setColumnMapping(columnMapping);
+        CsvToBean<Employee> csv = new CsvToBeanBuilder<Employee>(reader)
+                .withMappingStrategy(strategy)
+                .build();
+        final List<Employee> parse = csv.parse();
+        reader.close();
+        return parse;
     }
+
 
     public static String listToJson(List<Employee> list) {
         GsonBuilder builder = new GsonBuilder();
