@@ -2,6 +2,8 @@ package task3;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import task1.Employee;
@@ -21,7 +23,8 @@ public class Main {
 
         String json = readString("src/main/resources/new_data.json");
         System.out.println(json);
-//        List<Employee> list = jsonList(json);
+        List<Employee> list = jsonList(json);
+
 
     }
 
@@ -35,27 +38,27 @@ public class Main {
         return sb.toString();
     }
 
-    public static List<Employee> jsonList(String json) {
+    public static List<Employee> jsonList(String json) throws IOException, ParseException {
         List<Employee> employees = new ArrayList<>();
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(json);
 
-        try {
-            JSONParser parser = new JSONParser();
+//
+//
+        JSONArray jsonArray = new JSONArray();
 
-            Object[] jsonArray = new Object[]{
-                    parser.parse(json)
-            };
 
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            Gson gson = gsonBuilder.create();
-            for (Object o : jsonArray) {
-                Employee employee = gson.fromJson(json, Employee.class);
-                System.out.println(employee);
-                employees.add(employee);
-            }
 
-        } catch (ParseException e) {
-            e.printStackTrace();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        for (Object o : jsonArray) {
+            Employee employee = gson.fromJson(json, Employee.class);
+            System.out.println(employee);
+            employees.add(employee);
         }
+        Employee employee = gson.fromJson(json, Employee.class);
+        employees.add(employee);
+
         return employees;
     }
 
