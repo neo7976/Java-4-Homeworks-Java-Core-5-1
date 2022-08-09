@@ -12,10 +12,10 @@ import java.util.List;
 
 
 public class Main {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
 
         String json = readString("src/main/resources/new_data.json");
-        List<Employee> list = jsonList(json);
+        List<Employee> list = jsonToList(json);
         for (Employee employee : list) {
             System.out.println(employee);
         }
@@ -32,10 +32,11 @@ public class Main {
         return sb.toString();
     }
 
-    public static List<Employee> jsonList(String json){
+    public static List<Employee> jsonToList(String json) {
         Gson gson = new Gson();
         Type type = new TypeToken<List<Employee>>() {
         }.getType();
         return gson.fromJson(json, type);
+
     }
 }
